@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--View-->
+  <div id="app">
+    <h2>Lunch Menu</h2>
+    <button @click="pick">Pick one!</button>
+    <h3>I recommend, {{ choice }}</h3>
+  </div>
+  <hr>
+  <div id="app2">
+    <h2>Lotto go</h2>
+    <button @click="pick2">go</button>
+
+    <br>
+  <div v-show="done">
+    {{ choices }}
+  </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script>
+  
+    // ViewModel
+    const app = new Vue({
+      el: '#app',
+      data: {
+        lunch: ['떡볶이', '탕수육', '스시', '라멘', '짜장면', '오이시이!'],
+        choice: '',
+      },
+      methods: {
+        pick: function () {
+          // random 활용
+          // const randomIdx = _.random(this.lunch.length-1)
+          // this.choice = this.lunch[randomIdx]
+
+          // sample 활용
+          this.choice = _.sample(this.lunch)
+        }
+      }
+    })
+    const app2 = new Vue({
+      el: '#app2',
+      data: {
+        done: false,
+        choices: [],
+      },
+      methods: {
+        pick2: function () {
+          this.done = true
+          
+          const nums = _.range(1, 46)
+          this.choices = _.sampleSize(nums, 6)
+        }
+      }
+    })  
+  </script>
+</body>
+</html>
